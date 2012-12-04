@@ -283,6 +283,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
                 && mRefreshState != REFRESHING) {
             if (firstVisibleItem == 0) {
                 mRefreshViewImage.setVisibility(View.VISIBLE);
+                mRefreshViewText.setVisibility(View.VISIBLE);
                 if ((mRefreshView.getBottom() >= mRefreshViewHeight + 20
                         || mRefreshView.getTop() >= 0)
                         && mRefreshState != RELEASE_TO_REFRESH) {
@@ -369,6 +370,10 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
         Log.d(TAG, "onRefreshComplete");
 
         resetHeader();
+        
+        if (getAdapter().getCount() - 1 == 0) {// -1 because of the header.
+        	mRefreshViewText.setVisibility(View.VISIBLE);
+        }
 
         // If refresh view is visible when loading completes, scroll down to
         // the next item.
